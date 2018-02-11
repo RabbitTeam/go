@@ -1,0 +1,27 @@
+<Project ToolsVersion="15.0">
+  <Import Project="version.props" />
+
+  <PropertyGroup Label="Source Link">
+    <ProjectParentDirectory>$([System.IO.Path]::GetDirectoryName('$(MSBuildProjectDirectory)'))</ProjectParentDirectory>
+    <ProjectParentDirectoryName>$([System.IO.Path]::GetFileName('$(ProjectParentDirectory)'))</ProjectParentDirectoryName>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Build">
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Package">
+    <Product>Rabbit Go</Product>
+    <RepositoryUrl>https://github.com/RabbitTeam/go</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>A generic, strongly typed client.</Description>
+    <Copyright>Copyright (c) 2017 RabbitTeam. All rights reserved.</Copyright>
+    <Authors>majian</Authors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageTags>rabbit.go httpclient goclient client</PackageTags>
+
+    <PackageIconUrl>http://www.rabbithub.com/icon.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/RabbitTeam/go</PackageProjectUrl>
+    <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+  </PropertyGroup>
+</Project>

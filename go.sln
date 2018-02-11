@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go.Abstractions", "src\Rabbit.Go.Abstractions\Rabbit.Go.Abstractions.csproj", "{C759B0F9-BFBD-4109-8BCF-1A6AC1355372}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go.Core", "src\Rabbit.Go.Core\Rabbit.Go.Core.csproj", "{2E979959-95BE-46E9-BE44-929285A61BFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3472D49C-11DB-4201-8A91-315C97D0A5DC}"
+	ProjectSection(SolutionItems) = preProject
+		build\common.props = build\common.props
+		build\nuget.exe = build\nuget.exe
+		build\package.ps1 = build\package.ps1
+		build\package_build.ps1 = build\package_build.ps1
+		build\push_packages.ps1 = build\push_packages.ps1
+		build\settings.ps1 = build\settings.ps1
+		build\version.props = build\version.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6DB4C1B5-2072-4C1D-AB81-4A441A898458}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "recipes", "recipes", "{FB6FF47A-7D3C-4F60-B58A-EA01F5D9BAF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C759B0F9-BFBD-4109-8BCF-1A6AC1355372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C759B0F9-BFBD-4109-8BCF-1A6AC1355372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C759B0F9-BFBD-4109-8BCF-1A6AC1355372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C759B0F9-BFBD-4109-8BCF-1A6AC1355372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E979959-95BE-46E9-BE44-929285A61BFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E979959-95BE-46E9-BE44-929285A61BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E979959-95BE-46E9-BE44-929285A61BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E979959-95BE-46E9-BE44-929285A61BFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C759B0F9-BFBD-4109-8BCF-1A6AC1355372} = {6DB4C1B5-2072-4C1D-AB81-4A441A898458}
+		{2E979959-95BE-46E9-BE44-929285A61BFE} = {6DB4C1B5-2072-4C1D-AB81-4A441A898458}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4CDDBA3-F4C9-4C82-80EF-B1B848A74158}
+	EndGlobalSection
+EndGlobal
