@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\build\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Rabbit.Go.DingTalk</AssemblyName>
+    <Description>Rabbit Go based DingTalk SDK client.</Description>
+    <PackageProjectUrl>https://github.com/RabbitTeam/go/recipes/DingTalk</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Rabbit.Go.Core\Rabbit.Go.Core.csproj" />
+  </ItemGroup>
+
+</Project>

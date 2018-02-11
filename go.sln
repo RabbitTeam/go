@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6DB4C1B5-207
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "recipes", "recipes", "{FB6FF47A-7D3C-4F60-B58A-EA01F5D9BAF1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go.DingTalk", "recipes\DingTalk\Rabbit.Go.DingTalk.csproj", "{9B853747-0E23-4454-9CB6-62081052B6ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{2E979959-95BE-46E9-BE44-929285A61BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E979959-95BE-46E9-BE44-929285A61BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E979959-95BE-46E9-BE44-929285A61BFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B853747-0E23-4454-9CB6-62081052B6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B853747-0E23-4454-9CB6-62081052B6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B853747-0E23-4454-9CB6-62081052B6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B853747-0E23-4454-9CB6-62081052B6ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C759B0F9-BFBD-4109-8BCF-1A6AC1355372} = {6DB4C1B5-2072-4C1D-AB81-4A441A898458}
 		{2E979959-95BE-46E9-BE44-929285A61BFE} = {6DB4C1B5-2072-4C1D-AB81-4A441A898458}
+		{9B853747-0E23-4454-9CB6-62081052B6ED} = {FB6FF47A-7D3C-4F60-B58A-EA01F5D9BAF1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C4CDDBA3-F4C9-4C82-80EF-B1B848A74158}
