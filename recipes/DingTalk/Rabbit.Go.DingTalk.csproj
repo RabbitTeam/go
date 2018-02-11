@@ -5,7 +5,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Rabbit.Go.DingTalk</AssemblyName>
     <Description>Rabbit Go based DingTalk SDK client.</Description>
-    <PackageProjectUrl>https://github.com/RabbitTeam/go/recipes/DingTalk</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/RabbitTeam/go/tree/master/recipes/DingTalk</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
