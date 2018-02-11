@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Rabbit.DingTalk.Go
+namespace Rabbit.Go.DingTalk
 {
     public static class DingTalkGoClientExtensions
     {

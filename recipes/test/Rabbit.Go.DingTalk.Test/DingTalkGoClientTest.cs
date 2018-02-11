@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Rabbit.DingTalk.Go;
 using System.Threading.Tasks;
 using Xunit;
 

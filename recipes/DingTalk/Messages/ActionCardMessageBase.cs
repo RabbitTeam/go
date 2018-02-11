@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Rabbit.DingTalk.Go
+namespace Rabbit.Go.DingTalk
 {
     public class ActionCardMessageBase : DingTalkMessage
     {

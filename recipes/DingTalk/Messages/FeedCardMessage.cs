@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Rabbit.DingTalk.Go
+namespace Rabbit.Go.DingTalk
 {
     public class FeedCardMessage : DingTalkMessage
     {

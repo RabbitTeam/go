@@ -1,7 +1,6 @@
-﻿using Rabbit.Go;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Rabbit.DingTalk.Go
+namespace Rabbit.Go.DingTalk
 {
     [Go("https://oapi.dingtalk.com/robot/send"), DingTalkCodec]
     public interface IDingTalkGoClient

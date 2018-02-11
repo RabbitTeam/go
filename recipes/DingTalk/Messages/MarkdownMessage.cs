@@ -1,4 +1,4 @@
-﻿namespace Rabbit.DingTalk.Go
+﻿namespace Rabbit.Go.DingTalk
 {
     public class MarkdownMessage : DingTalkMessage, IAtMessage
     {

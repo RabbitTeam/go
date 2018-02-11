@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Rabbit.Go;
 using Rabbit.Go.Core;
 using Rabbit.Go.Interceptors;
 using System;
 using System.Threading.Tasks;
 
-namespace Rabbit.DingTalk.Go
+namespace Rabbit.Go.DingTalk
 {
     public class DingTalkGoClientOptions
     {

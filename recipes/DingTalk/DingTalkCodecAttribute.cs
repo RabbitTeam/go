@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Rabbit.Go;
 using Rabbit.Go.Codec;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Rabbit.DingTalk.Go
+namespace Rabbit.Go.DingTalk
 {
     public class DingTalkCodecAttribute : Attribute, IEncoder, IDecoder, ICodec
     {
