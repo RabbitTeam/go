@@ -3,13 +3,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>Rabbit Go based DingTalk SDK client.</Description>
-    <PackageProjectUrl>https://github.com/RabbitTeam/go/tree/master/recipes/DingTalk</PackageProjectUrl>
+    <Description>Rabbit Go based GitHub SDK client.</Description>
+    <PackageProjectUrl>https://github.com/RabbitTeam/go/tree/master/recipes/GitHub</PackageProjectUrl>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Rabbit.Go.Core\Rabbit.Go.Core.csproj" />
