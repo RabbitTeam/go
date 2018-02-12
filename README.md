@@ -1,6 +1,7 @@
 # Rabbit Go
-一个设计为通用的强类型客户端。  
-目前只提供了Http的支持
+一个设计为通用的强类型客户端。  
+目前只提供了Http的支持  
+NuGet: https://www.nuget.org/packages/Rabbit.Go.Core
 # 1. 一个简单的示例
 ## 1.1 声明
 ```
