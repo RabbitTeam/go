@@ -28,7 +28,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4E44FC07-8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go.DingTalk.Test", "recipes\test\Rabbit.Go.DingTalk.Test\Rabbit.Go.DingTalk.Test.csproj", "{0345B372-F426-4E5C-88BB-DF15C14D031A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Go.GitHub", "recipes\GitHub\Rabbit.Go.GitHub.csproj", "{FE60DA5A-8373-47A7-953D-134FBBC398D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go.GitHub", "recipes\GitHub\Rabbit.Go.GitHub.csproj", "{FE60DA5A-8373-47A7-953D-134FBBC398D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Go.GitHub.Test", "recipes\test\Rabbit.Go.GitHub.Test\Rabbit.Go.GitHub.Test.csproj", "{A148C6DA-8C2C-4AF6-8200-66B084307AC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{FE60DA5A-8373-47A7-953D-134FBBC398D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE60DA5A-8373-47A7-953D-134FBBC398D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE60DA5A-8373-47A7-953D-134FBBC398D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A148C6DA-8C2C-4AF6-8200-66B084307AC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A148C6DA-8C2C-4AF6-8200-66B084307AC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A148C6DA-8C2C-4AF6-8200-66B084307AC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A148C6DA-8C2C-4AF6-8200-66B084307AC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{4E44FC07-86EA-42DC-BA31-9270E31F46E7} = {FB6FF47A-7D3C-4F60-B58A-EA01F5D9BAF1}
 		{0345B372-F426-4E5C-88BB-DF15C14D031A} = {4E44FC07-86EA-42DC-BA31-9270E31F46E7}
 		{FE60DA5A-8373-47A7-953D-134FBBC398D1} = {FB6FF47A-7D3C-4F60-B58A-EA01F5D9BAF1}
+		{A148C6DA-8C2C-4AF6-8200-66B084307AC1} = {4E44FC07-86EA-42DC-BA31-9270E31F46E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C4CDDBA3-F4C9-4C82-80EF-B1B848A74158}
