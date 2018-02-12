@@ -89,3 +89,6 @@ await userGoClient.PutAsync(1, new PutUserModel
 2. 提供服务发现、重试、限流、断路器的支持（集成 Rabbit Cloud）
 3. 提供对Grpc的调用支持
 4. 提供对dubbo的调用支持
+# 联系方式
+* QQ群：384413261 点击加入 [.NET Group](http://shang.qq.com/wpa/qunwpa?idkey=623e0bb6e02e7716ee6340cf7330be611e64d8ce7869862d9d9981f3d702bc8c)
+* Email：majian159@live.com
