@@ -47,10 +47,13 @@ namespace Rabbit.Go.Core
 
                 foreach (var header in headers)
                 {
+                    var values = new StringValues(header.Value.ToArray());
                     if (response.Headers.TryGetValue(header.Key, out var current))
                     {
-                        response.Headers[header.Key] = StringValues.Concat(current, new StringValues(header.Value.ToArray()));
+                        values = StringValues.Concat(current, values);
                     }
+
+                    response.Headers[header.Key] = values;
                 }
             }
 
