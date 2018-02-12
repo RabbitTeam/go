@@ -1,4 +1,4 @@
-# DingTalk
+# DingTalk（钉钉开放平台SDK）
 # 示例
 ```c#
 var dingTalkGoClient = new ServiceCollection()
