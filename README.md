@@ -59,7 +59,7 @@ public class PostUserModel : UserModel { }
 public class PutUserModel : UserModel { }
 ```
 ## 1.2 调用
-```
+```c#
 var services = new ServiceCollection()
     .AddOptions()
     .AddLogging()
@@ -75,6 +75,8 @@ await userGoClient.PutAsync(1, new PutUserModel
     Age = 20
 });
 ```
+# 食谱
+* [DingTalk（钉钉sdk）](https://github.com/RabbitTeam/go/tree/master/recipes/DingTalk)
 # 特性
 * 丰富的拦截器
 * 全局请求拦截器和模型公约拦截器
