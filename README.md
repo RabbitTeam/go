@@ -4,7 +4,7 @@
 **NuGet:** https://www.nuget.org/packages/Rabbit.Go.Core
 # 1. 一个简单的示例
 ## 1.1 声明
-```
+```c#
 [Go("http://api.com/user")]
 [DefaultHeader("access_token", "xxxxxxxxxx")]
 [DefaultQuery("project", "samples")]
