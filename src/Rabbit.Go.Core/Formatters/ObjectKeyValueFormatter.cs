@@ -22,9 +22,15 @@ namespace Rabbit.Go.Formatters
                 if (property.GetTypeAttribute<PropertyIgnoreAttribute>() != null)
                     continue;
 
+                var binderModelName = (property.GetTypeAttribute<KeyNameAttribute>()?.Name ?? property.Name);
+                if (!string.IsNullOrEmpty(context.BinderModelName))
+                {
+                    binderModelName = context.BinderModelName + "." + binderModelName;
+                }
+
                 var propertyContext = new KeyValueFormatterContext(context.FormatterFactory)
                 {
-                    BinderModelName = context.BinderModelName + "." + (property.GetTypeAttribute<KeyNameAttribute>()?.Name ?? property.Name),
+                    BinderModelName = binderModelName,
                     ModelType = property.PropertyType,
                     Model = property.GetValue(context.Model)
                 };
