@@ -1,4 +1,6 @@
 # DingTalk（钉钉开放平台SDK）
+# NuGet
+https://www.nuget.org/packages/Rabbit.Go.DingTalk
 # 示例
 ```c#
 var dingTalkGoClient = new ServiceCollection()
