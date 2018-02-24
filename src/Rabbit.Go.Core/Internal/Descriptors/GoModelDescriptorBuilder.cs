@@ -70,7 +70,7 @@ namespace Rabbit.Go.Core.Internal.Descriptors
                             ParameterType = parameterModel.ParameterInfo.ParameterType,
                             FormattingInfo = new ParameterFormattingInfo
                             {
-                                FormatterName = GetFormatterName(parameterModel, parameterTarget),
+                                FormatterName = GetFormatterName(parameterModel),
                                 FormatterType = parameterModel.Attributes.OfType<CustomFormatterAttribute>().LastOrDefault()?.FormatterType,
                                 Target = parameterTarget
                             }
@@ -88,20 +88,12 @@ namespace Rabbit.Go.Core.Internal.Descriptors
             return descriptors;
         }
 
-        private static string GetFormatterName(ParameterModel parameter, ParameterTarget target)
+        private static string GetFormatterName(ParameterModel parameter)
         {
             var goParameterAttribute = parameter.Attributes.OfType<GoParameterAttribute>().SingleOrDefault();
 
             // 如果 attribute name有效，则无条件使用 attribute 提供的 name
-            if (goParameterAttribute?.Name != null)
-                return goParameterAttribute.Name;
-
-            // 目标是 path 则使用参数名称
-            if (target == ParameterTarget.Path)
-                return parameter.ParameterName;
-
-            // 如果对应目标只有一个参数则name为null，否则使用原参数名称
-            return parameter.Method.Parameters.GroupBy(i => i.Target).Count() == 1 ? null : parameter.ParameterName;
+            return goParameterAttribute?.Name ?? parameter.ParameterName;
         }
 
         private static ParameterTarget GetParameterTarget(MethodDescriptor methodDescriptor, ParameterModel parameterModel)
