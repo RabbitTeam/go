@@ -61,11 +61,7 @@ namespace Rabbit.Go.Builder.Internal
 
         public GoRequestDelegate Build()
         {
-            GoRequestDelegate app = context =>
-            {
-                context.Response.StatusCode = 404;
-                return Task.CompletedTask;
-            };
+            GoRequestDelegate app = context => Task.CompletedTask;
 
             foreach (var component in _components.Reverse())
             {

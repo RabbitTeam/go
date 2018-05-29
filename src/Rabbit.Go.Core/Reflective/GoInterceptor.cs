@@ -77,7 +77,10 @@ namespace Rabbit.Go.Core.Reflective
             var arguments = invocation.Arguments;
             var method = invocation.Method;
             var returnType = method.ReturnType;
-            var realReturnType = returnType.IsGenericType ? returnType.GenericTypeArguments[0] : null;
+
+            var isTask = typeof(Task).IsAssignableFrom(returnType);
+
+            var realReturnType = isTask && returnType.IsGenericType ? returnType.GenericTypeArguments[0] : returnType;
 
             var goContext = _goContextFactory();
 

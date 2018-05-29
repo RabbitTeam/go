@@ -44,7 +44,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go.Http", "src\Rabbit.Go.Http\Rabbit.Go.Http.csproj", "{C494B27D-26C4-4F6F-98F8-7E6547E2747F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Go", "src\Rabbit.Go\Rabbit.Go.csproj", "{AF0D4CDD-0EAA-4F0C-8B25-D60B71F5E96D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go", "src\Rabbit.Go\Rabbit.Go.csproj", "{AF0D4CDD-0EAA-4F0C-8B25-D60B71F5E96D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Go.Linq2Rest", "src\Rabbit.Go.Linq2Rest\Rabbit.Go.Linq2Rest.csproj", "{069F057C-CA59-49B2-9E7A-F228BF7AECB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +98,10 @@ Global
 		{AF0D4CDD-0EAA-4F0C-8B25-D60B71F5E96D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF0D4CDD-0EAA-4F0C-8B25-D60B71F5E96D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF0D4CDD-0EAA-4F0C-8B25-D60B71F5E96D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069F057C-CA59-49B2-9E7A-F228BF7AECB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069F057C-CA59-49B2-9E7A-F228BF7AECB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069F057C-CA59-49B2-9E7A-F228BF7AECB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069F057C-CA59-49B2-9E7A-F228BF7AECB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +119,7 @@ Global
 		{10154B04-2F5D-4F12-9EDA-BB913E5D183C} = {5CF6F51E-CB72-4DC8-A6FE-F83A7A62B402}
 		{C494B27D-26C4-4F6F-98F8-7E6547E2747F} = {6DB4C1B5-2072-4C1D-AB81-4A441A898458}
 		{AF0D4CDD-0EAA-4F0C-8B25-D60B71F5E96D} = {6DB4C1B5-2072-4C1D-AB81-4A441A898458}
+		{069F057C-CA59-49B2-9E7A-F228BF7AECB5} = {6DB4C1B5-2072-4C1D-AB81-4A441A898458}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C4CDDBA3-F4C9-4C82-80EF-B1B848A74158}
