@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\Rabbit.Go.Http\Rabbit.Go.Http.csproj" />
+    <ProjectReference Include="..\src\Rabbit.Go\Rabbit.Go.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,6 @@ using Rabbit.Go.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Rabbit.Go.Http
@@ -92,7 +91,7 @@ namespace Rabbit.Go.Http
             SetRequestLine(request, methodDescriptor, templateArguments);
             SetHeaders(request, methodDescriptor, templateArguments);
 
-            var bodyParameterDescriptor = methodDescriptor.Parameters.SingleOrDefault(i => i.ParameterType.IsClass && i.ParameterType != typeof(string));
+            var bodyParameterDescriptor = methodDescriptor.Parameters.SingleOrDefault(i => i.Attributes.OfType<GoBodyAttribute>().Any());
 
             if (bodyParameterDescriptor != null)
             {

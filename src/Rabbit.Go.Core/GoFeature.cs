@@ -1,6 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using Rabbit.Go.Codec;
+﻿using Rabbit.Go.Codec;
+using System;
 
 namespace Rabbit.Go.Core
 {
@@ -12,16 +11,22 @@ namespace Rabbit.Go.Core
         object RequestInstance { get; set; }
         Type ResponseType { get; set; }
         object ResponseInstance { get; set; }
+        RequestOptions RequestOptions { get; set; }
     }
 
     public class GoFeature : IGoFeature
     {
+        public GoFeature()
+        {
+            RequestOptions = new RequestOptions();
+        }
+
         #region Implementation of IGoFeature
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public IEncoder Encoder { get; set; }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public IDecoder Decoder { get; set; }
 
         /// <inheritdoc/>
@@ -36,16 +41,22 @@ namespace Rabbit.Go.Core
         /// <inheritdoc/>
         public object ResponseInstance { get; set; }
 
+        /// <inheritdoc/>
+        public RequestOptions RequestOptions { get; set; }
+
         #endregion Implementation of IGoFeature
     }
 
-/*
-    public interface IParameterSetter
+    public class RequestOptions
     {
-        Task SetAsync(GoContext goContext, ParameterDescriptor descriptor, object value);
-    }
-    public class a
-    {
-*/
+        /// <summary>
+        /// 超时时间（秒）
+        /// </summary>
+        public uint Timeout { get; set; } = 30;
 
+        /// <summary>
+        /// 重试次数
+        /// </summary>
+        public uint Retryer { get; set; } = 3;
+    }
 }

@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.Primitives;
+using Rabbit.Go.Core;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Rabbit.Go.Http
@@ -18,13 +21,43 @@ namespace Rabbit.Go.Http
 
         public async Task Invoke(GoContext context)
         {
-            var requestMessage = CreateHttpRequestMessage(context);
+            var goFeature = context.Features.Get<IGoFeature>();
+            var requestOptions = goFeature.RequestOptions;
 
-            var responseMessage = await _httpClient.SendAsync(requestMessage);
+            Exception exception = null;
+            HttpResponseMessage responseMessage = null;
+            for (var i = 0; i < requestOptions.Retryer; i++)
+            {
+                try
+                {
+                    var requestMessage = CreateHttpRequestMessage(context);
+                    responseMessage = await RequestAsync(requestMessage, requestOptions);
+                    responseMessage.EnsureSuccessStatusCode();
+                    exception = null;
+                    break;
+                }
+                catch (Exception e)
+                {
+                    exception = e;
+                    if (responseMessage != null && (int)responseMessage.StatusCode < 500)
+                        break;
+                }
+            }
+
+            if (exception != null)
+                throw exception;
 
             await SetGoContextAsync(context, responseMessage);
 
             await _next(context);
+        }
+
+        private async Task<HttpResponseMessage> RequestAsync(HttpRequestMessage requestMessage, RequestOptions requestOptions)
+        {
+            using (var cancellationTokenSource = new CancellationTokenSource((int)requestOptions.Timeout * 1000))
+            {
+                return await _httpClient.SendAsync(requestMessage, cancellationTokenSource.Token);
+            }
         }
 
         private static string GetHostString(GoRequest request)
@@ -63,7 +96,6 @@ namespace Rabbit.Go.Http
             {
                 requestMessage.Content.Headers.Remove(header.Key);
                 requestMessage.Content.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray());
-//                requestMessage.Content.Headers.Add(header.Key, header.Value.ToArray());
             }
 
             return requestMessage;

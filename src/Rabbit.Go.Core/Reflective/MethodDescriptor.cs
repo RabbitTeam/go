@@ -18,22 +18,4 @@ namespace Rabbit.Go.Core
         public object[] Attributes { get; set; }
         public string Name { get; set; }
     }
-
-    public interface IParameterExpander
-    {
-        string Expand(object value);
-    }
-
-    public class ToStringParameterExpander : IParameterExpander
-    {
-        #region Implementation of IParameterExpander
-
-        /// <inheritdoc/>
-        public string Expand(object value)
-        {
-            return value?.ToString();
-        }
-
-        #endregion Implementation of IParameterExpander
-    }
 }

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Rabbit.Go.Utilities
 {
-    public class TemplateUtilities
+    internal class TemplateUtilities
     {
         private const string Left = "{";
         private const string Right = "}";

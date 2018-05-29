@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using Rabbit.Go;
 using Rabbit.Go.Builder;
 using Rabbit.Go.Builder.Internal;
+using Rabbit.Go.Codec;
 using Rabbit.Go.Core;
 using Rabbit.Go.Core.Builder;
-using Rabbit.Go.Core.Codec;
 using Rabbit.Go.Core.Reflective;
 using Rabbit.Go.Http;
 using Rabbit.Go.Internal;
@@ -23,11 +23,11 @@ namespace ConsoleApp
     public interface ITestClient
     {
         [GoGet("/accesstoken/{appId}")]
-        Task<MyClass> GetAsync([GoParameter("appId")]string appId);
+        Task<MyClass> GetAsync(string appId);
 
-        [GoHeaders("Content-Type:application/json")]
+        [GoHeaders("Content-Type: application/json")]
         [GoPut("/MiniProgramFormId/{appId}/{openId}/{formId}")]
-        Task PutAsync([GoParameter("appId")]string appId, [GoParameter("openId")]string openId, [GoParameter("formId")]string formId, MyClass body);
+        Task PutAsync(string appId, string openId, string formId, [GoBody]MyClass body);
     }
 
     internal class Program
@@ -35,10 +35,8 @@ namespace ConsoleApp
         private static void Main(string[] args)
         {
             var services = new ServiceCollection()
-                .AddOptions()
                 .AddSingleton<ITemplateParser, TemplateParser>()
                 .AddSingleton<IParameterExpanderLocator, ParameterExpanderLocator>()
-                .AddSingleton<ToStringParameterExpander>()
                 .BuildServiceProvider();
             var app = new GoApplicationBuilder(services);
 
@@ -49,10 +47,9 @@ namespace ConsoleApp
 
             var invoker = app.Build();
 
-            var codec = new JsonCodec();
             var goBuilder = new GoBuilder(invoker)
-                .Encoder(codec.Encoder)
-                .Decoder(codec.Decoder);
+                .Encoder(JsonEncoder.Instance)
+                .Decoder(JsonDecoder.Instance);
 
             var testClient = goBuilder.Target<ITestClient>("http://192.168.100.150:7707");
 

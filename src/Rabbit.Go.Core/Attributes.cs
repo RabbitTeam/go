@@ -76,4 +76,9 @@ namespace Rabbit.Go
 
         public string Value { get; }
     }
+
+    [AttributeUsage(AttributeTargets.Parameter)]
+    public class GoBodyAttribute : Attribute
+    {
+    }
 }

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 
 namespace Rabbit.Go.Core.Utilities
 {
     public static class MethodDescriptorUtilities
     {
-        public static MethodDescriptor[] CreateMethodDescriptors(Type type)
-        {
-            return type.GetMethods().Select(CreateMethodDescriptor).ToArray();
-        }
-
         public static MethodDescriptor CreateMethodDescriptor(MethodInfo methodInfo)
         {
             var requestLine = methodInfo.GetCustomAttribute<GoRequestLineAttribute>().RequestLine;
@@ -48,11 +42,22 @@ namespace Rabbit.Go.Core.Utilities
 
         private static ParameterDescriptor CreateParameterDescriptor(ParameterInfo parameterInfo)
         {
+            var goParameterAttribute = parameterInfo.GetCustomAttribute<GoParameterAttribute>();
+            var attributes = parameterInfo.GetCustomAttributes().OfType<object>().ToList();
+            if (goParameterAttribute == null)
+            {
+                goParameterAttribute = new GoParameterAttribute(parameterInfo.Name)
+                {
+                    Expander = typeof(ToStringParameterExpander)
+                };
+                attributes.Insert(0, goParameterAttribute);
+            }
+
             return new ParameterDescriptor
             {
-                Name = parameterInfo.GetCustomAttribute<GoParameterAttribute>()?.Name ?? parameterInfo.Name,
+                Name = goParameterAttribute.Name,
                 ParameterName = parameterInfo.Name,
-                Attributes = parameterInfo.GetCustomAttributes().OfType<object>().ToArray(),
+                Attributes = attributes.ToArray(),
                 ParameterType = parameterInfo.ParameterType
             };
         }
