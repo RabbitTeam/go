@@ -1,15 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\build\common.props" />
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="out\**" />
-    <EmbeddedResource Remove="out\**" />
-    <None Remove="out\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.2.1" />

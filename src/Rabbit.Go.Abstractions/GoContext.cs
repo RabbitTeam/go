@@ -5,21 +5,6 @@ using System.Collections.Generic;
 
 namespace Rabbit.Go
 {
-    /*    public class GoContext
-        {
-            public GoContext()
-            {
-                Request = new GoRequest(this);
-                Response = new GoResponse(this);
-                Items = new Dictionary<object, object>();
-            }
-
-            public GoRequest Request { get; }
-            public GoResponse Response { get; }
-            public IServiceProvider RequestServices { get; set; }
-            public IDictionary<object, object> Items { get; set; }
-        }*/
-
     public abstract class GoContext
     {
         public abstract IFeatureCollection Features { get; }

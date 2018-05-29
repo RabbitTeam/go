@@ -22,14 +22,13 @@ namespace ConsoleApp
 
     public interface ITestClient
     {
-        [GoRequestLine("GET /accesstoken/{appId}")]
+        [GoGet("/accesstoken/{appId}")]
         Task<MyClass> GetAsync([GoParameter("appId")]string appId);
 
         [GoHeaders("Content-Type:application/json")]
-        [GoRequestLine("PUT /MiniProgramFormId/{appId}/{openId}/{formId}")]
+        [GoPut("/MiniProgramFormId/{appId}/{openId}/{formId}")]
         Task PutAsync([GoParameter("appId")]string appId, [GoParameter("openId")]string openId, [GoParameter("formId")]string formId, MyClass body);
     }
-
 
     internal class Program
     {
@@ -59,27 +58,6 @@ namespace ConsoleApp
 
             Console.WriteLine(JsonConvert.SerializeObject(testClient.GetAsync("wx3a1ba93c7fc5b2af").GetAwaiter().GetResult()));
             testClient.PutAsync("appId", "openId", "formId", new MyClass { access_token = "token", expires_in = 100 }).GetAwaiter().GetResult();
-
-            /*
-
-                        var reflectiveFeature = new ReflectiveFeature();
-
-                        reflectiveFeature.MethodDescriptor = descriptor;
-                        reflectiveFeature.Arguments = new Dictionary<string, object>
-                        {
-                            {"appId","appId" },
-
-                            {"openId","openId" },
-
-                            {"formId","formId" },
-                            {"test",new MyClass
-                            {
-                                access_token="token",
-                                expires_in=100
-                            } }
-                        };*/
-
-            // features.Set<IReflectiveFeature>(reflectiveFeature);
         }
     }
 }
