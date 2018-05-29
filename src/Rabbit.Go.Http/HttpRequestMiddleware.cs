@@ -84,12 +84,23 @@ namespace Rabbit.Go.Http
             return host;
         }
 
+        public static string GetBaseUrl(GoRequest request)
+        {
+            if (string.IsNullOrEmpty(request.Scheme) || string.IsNullOrEmpty(request.Host))
+                return null;
+
+            return $"{request.Scheme}://{GetHostString(request)}";
+        }
+
         private static HttpRequestMessage CreateHttpRequestMessage(GoContext context)
         {
             var request = context.Request;
-            var hostString = GetHostString(context.Request);
 
-            var requestUrl = $"{request.Scheme}://{hostString}{request.Path}{request.QueryString}";
+            var baseUrl = GetBaseUrl(request);
+            var requestUrl = $"{request.Path}{request.QueryString}";
+            if (baseUrl != null)
+                requestUrl = baseUrl + requestUrl;
+
             var requestMessage = new HttpRequestMessage(new HttpMethod(request.Method), requestUrl);
 
             if (request.Body == Stream.Null)

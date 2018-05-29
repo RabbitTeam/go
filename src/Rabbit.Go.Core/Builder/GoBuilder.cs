@@ -36,6 +36,8 @@ namespace Rabbit.Go.Core.Builder
 
         private static void SetBaseAddress(string url, GoContext context)
         {
+            if (string.IsNullOrEmpty(url))
+                return;
             var uri = new Uri(url);
             var request = context.Request;
             request.Scheme = uri.Scheme;
@@ -45,6 +47,11 @@ namespace Rabbit.Go.Core.Builder
         }
 
         // private GoInterceptor _goInterceptor;
+
+        public object Target(Type type)
+        {
+            return Target(type, null);
+        }
 
         public object Target(Type type, string url)
         {
@@ -98,6 +105,11 @@ namespace Rabbit.Go.Core.Builder
                         }
 
                         return ProxyGenerator.CreateInterfaceProxyWithoutTarget(type, Enumerable.Empty<Type>().ToArray(), _goInterceptor);*/
+        }
+
+        public T Target<T>()
+        {
+            return Target<T>(null);
         }
 
         public T Target<T>(string url)
