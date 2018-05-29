@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="out\**" />
+    <EmbeddedResource Remove="out\**" />
+    <None Remove="out\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.4" />
@@ -14,6 +20,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rabbit.Go.Abstractions\Rabbit.Go.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Internal\" />
   </ItemGroup>
 
 </Project>

@@ -1,133 +1,128 @@
-﻿using Microsoft.Extensions.Primitives;
+﻿using Rabbit.Go.Abstractions.Features;
+using Rabbit.Go.Features;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rabbit.Go
 {
-    public delegate Task GoRequestDelegate(GoContext context);
-
-    public class GoContext
-    {
-        public GoContext()
+    /*    public class GoContext
         {
-            Request = new GoRequest(this);
-            Response = new GoResponse(this);
-            Items = new Dictionary<object, object>();
-        }
+            public GoContext()
+            {
+                Request = new GoRequest(this);
+                Response = new GoResponse(this);
+                Items = new Dictionary<object, object>();
+            }
 
-        public GoRequest Request { get; }
-        public GoResponse Response { get; }
-        public IServiceProvider RequestServices { get; set; }
-        public IDictionary<object, object> Items { get; set; }
+            public GoRequest Request { get; }
+            public GoResponse Response { get; }
+            public IServiceProvider RequestServices { get; set; }
+            public IDictionary<object, object> Items { get; set; }
+        }*/
+
+    public abstract class GoContext
+    {
+        public abstract IFeatureCollection Features { get; }
+        public abstract GoRequest Request { get; }
+        public abstract GoResponse Response { get; }
+        public abstract IDictionary<object, object> Items { get; set; }
+        public abstract IServiceProvider RequestServices { get; set; }
     }
 
-    public class GoRequest
+    public class DefaultGoContext : GoContext
     {
-        public GoRequest(GoContext goContext)
+        private static readonly Func<IFeatureCollection, IItemsFeature> _newItemsFeature = f => new ItemsFeature();
+        private static readonly Func<IFeatureCollection, IServiceProvidersFeature> _newServiceProvidersFeature = f => new ServiceProvidersFeature();
+
+        private FeatureReferences<FeatureInterfaces> _features;
+
+        private GoRequest _request;
+        private GoResponse _response;
+
+        public DefaultGoContext(IFeatureCollection features)
         {
-            GoContext = goContext;
-            Headers = new Dictionary<string, StringValues>(StringComparer.OrdinalIgnoreCase);
-            Query = new Dictionary<string, StringValues>(StringComparer.OrdinalIgnoreCase);
-            Options = RequestOptions.Default;
+            Initialize(features);
         }
 
-        public GoContext GoContext { get; }
-        public RequestOptions Options { get; set; }
-        public string Method { get; set; }
-        public string Scheme { get; set; }
-        public string Host { get; set; }
-        public int? Port { get; set; }
-        private string _path;
-
-        public string Path
+        public virtual void Initialize(IFeatureCollection features)
         {
-            get => _path;
-            set
+            _features = new FeatureReferences<FeatureInterfaces>(features);
+            _request = InitializeGoRequest();
+            _response = InitializeGoResponse();
+        }
+
+        public virtual void Uninitialize()
+        {
+            _features = default(FeatureReferences<FeatureInterfaces>);
+            if (_request != null)
             {
-                _path = value;
-
-                if (string.IsNullOrEmpty(_path))
-                {
-                    _path = "/";
-                    return;
-                }
-
-                if (!_path.StartsWith("/"))
-                    _path = "/" + _path;
+                UninitializeGoRequest(_request);
+                _request = null;
+            }
+            if (_response != null)
+            {
+                UninitializeGoResponse(_response);
+                _response = null;
             }
         }
 
-        public IDictionary<string, StringValues> Headers { get; }
-        public IDictionary<string, StringValues> Query { get; }
-        public Stream Body { get; set; }
-    }
+        #region Property
 
-    public static class GoRequestExtensions
-    {
-        public static GoRequest Query(this GoRequest request, string name, StringValues values)
+        private IItemsFeature ItemsFeature =>
+            _features.Fetch(ref _features.Cache.Items, _newItemsFeature);
+
+        private IServiceProvidersFeature ServiceProvidersFeature =>
+            _features.Fetch(ref _features.Cache.ServiceProviders, _newServiceProvidersFeature);
+
+        #endregion Property
+
+        #region Overrides of GoContext
+
+        /// <inheritdoc/>
+        public override IFeatureCollection Features => _features.Collection;
+
+        /// <inheritdoc/>
+        public override GoRequest Request => _request;
+
+        /// <inheritdoc/>
+        public override GoResponse Response => _response;
+
+        /// <inheritdoc/>
+        public override IDictionary<object, object> Items
         {
-            var query = request.Query;
-            query[name] = values;
-
-            return request;
+            get => ItemsFeature.Items;
+            set => ItemsFeature.Items = value;
         }
 
-        public static GoRequest Header(this GoRequest request, string name, StringValues values)
+        /// <inheritdoc/>
+        public override IServiceProvider RequestServices
         {
-            var headers = request.Headers;
-
-            headers.Remove(name);
-            headers.Add(name, values.ToArray());
-
-            return request;
+            get => ServiceProvidersFeature.RequestServices;
+            set => ServiceProvidersFeature.RequestServices = value;
         }
 
-        public static GoRequest AddQuery(this GoRequest request, string name, StringValues values)
+        #endregion Overrides of GoContext
+
+        #region Protected Method
+
+        protected virtual GoRequest InitializeGoRequest() => new DefaultGoRequest(this);
+
+        protected virtual void UninitializeGoRequest(GoRequest instance)
         {
-            var query = request.Query;
-            if (query.TryGetValue(name, out var current))
-                values = StringValues.Concat(current, values);
-
-            query[name] = values;
-
-            return request;
         }
 
-        public static GoRequest AddHeader(this GoRequest request, string name, StringValues values)
+        protected virtual GoResponse InitializeGoResponse() => new DefaultGoResponse(this);
+
+        protected virtual void UninitializeGoResponse(GoResponse instance)
         {
-            var headers = request.Headers;
-
-            headers.Add(name, values.ToArray());
-
-            return request;
         }
 
-        public static GoRequest Body(this GoRequest request, byte[] data, string contentType = "application/json")
-        {
-            request.Body = new MemoryStream(data);
-            return request.Header("Content-Type", contentType);
-        }
+        #endregion Protected Method
 
-        public static GoRequest Body(this GoRequest request, string content, string contentType = "text/plain")
+        private struct FeatureInterfaces
         {
-            return request.Body(Encoding.UTF8.GetBytes(content), contentType);
+            public IItemsFeature Items;
+            public IServiceProvidersFeature ServiceProviders;
         }
-    }
-
-    public class GoResponse
-    {
-        public GoResponse(GoContext goContext)
-        {
-            GoContext = goContext;
-            Headers = new Dictionary<string, StringValues>(StringComparer.OrdinalIgnoreCase);
-        }
-
-        public GoContext GoContext { get; }
-        public Stream Content { get; set; }
-        public IDictionary<string, StringValues> Headers { get; }
-        public int StatusCode { get; set; }
     }
 }
