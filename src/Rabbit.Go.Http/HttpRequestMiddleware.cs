@@ -12,11 +12,16 @@ namespace Rabbit.Go.Http
     public class HttpRequestMiddleware
     {
         private readonly GoRequestDelegate _next;
-        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly HttpClient _httpClient;
 
-        public HttpRequestMiddleware(GoRequestDelegate next)
+        public HttpRequestMiddleware(GoRequestDelegate next, HttpClient httpClient)
         {
             _next = next;
+            _httpClient = httpClient;
+        }
+
+        public HttpRequestMiddleware(GoRequestDelegate next) : this(next, new HttpClient())
+        {
         }
 
         public async Task Invoke(GoContext context)

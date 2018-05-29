@@ -4,7 +4,6 @@ using Rabbit.Go;
 using Rabbit.Go.Abstractions.Features;
 using Rabbit.Go.Core;
 using Rabbit.Go.Features;
-using Rabbit.Go.Linq2Rest;
 using System;
 using System.IO;
 using System.Linq;
@@ -18,8 +17,8 @@ namespace Cdreader.Services.Linq2Rest
 
         public RabbitRestClient(GoContext goContext, GoRequestDelegate invoker)
         {
-            // var goFeature = goContext.Features.Get<IGoFeature>(); goFeature.Encoder = null;
-            // goFeature.Decoder = null;
+            var goFeature = goContext.Features.Get<IGoFeature>(); goFeature.Encoder = null;
+            goFeature.Decoder = null;
 
             _goContext = goContext;
             _invoker = invoker;
@@ -65,7 +64,6 @@ namespace Cdreader.Services.Linq2Rest
         public Stream Get(Uri uri)
         {
             var goContext = CloneGoContext();
-            var goFeature = goContext.Features.Get<IGoFeature>();
 
             var pathAndQuery = uri.PathAndQuery;
             var queryStartIndex = pathAndQuery.IndexOf("?", StringComparison.OrdinalIgnoreCase);
@@ -83,15 +81,7 @@ namespace Cdreader.Services.Linq2Rest
 
             var response = goContext.Response;
 
-            var body = response.Body;
-
-            if (response.StatusCode == 404)
-                body = Stream.Null;
-
-            if (body != Stream.Null)
-                GoSerializerFactory.SetResult(body, goFeature.ResponseInstance);
-
-            return body;
+            return response.StatusCode == 404 ? Stream.Null : response.Body;
         }
 
         public Stream Post(Uri uri, Stream input)

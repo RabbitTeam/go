@@ -1,21 +1,17 @@
 ﻿using Linq2Rest.Provider;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
 
 namespace Rabbit.Go.Linq2Rest
 {
     internal class GoSerializerFactory : ISerializerFactory
     {
         public static ISerializerFactory SerializerFactory { get; } = new GoSerializerFactory();
-        private static readonly ConcurrentDictionary<Stream, object> Results = new ConcurrentDictionary<Stream, object>();
-
-        public static void SetResult(Stream stream, object result)
-        {
-            Results.TryAdd(stream, result);
-        }
 
         #region Implementation of ISerializerFactory
 
@@ -54,9 +50,7 @@ namespace Rabbit.Go.Linq2Rest
             /// <returns>An instance of the serialized item.</returns>
             public T Deserialize(Stream input)
             {
-                if (input == Stream.Null)
-                    return default(T);
-                return Results.TryRemove(input, out var value) ? (T)value : default(T);
+                return Deserialize<T>(input);
             }
 
             /// <summary>
@@ -66,10 +60,7 @@ namespace Rabbit.Go.Linq2Rest
             /// <returns>An list of the serialized items.</returns>
             public IEnumerable<T> DeserializeList(Stream input)
             {
-                if (input == Stream.Null)
-                    return Enumerable.Empty<T>();
-
-                return Results.TryRemove(input, out var value) ? (IEnumerable<T>)value : Enumerable.Empty<T>();
+                return Deserialize<T[]>(input) ?? Enumerable.Empty<T>();
             }
 
             /// <summary>
@@ -83,6 +74,31 @@ namespace Rabbit.Go.Linq2Rest
             }
 
             #endregion Implementation of ISerializer<T>
+
+            #region Private Method
+
+            private static TType Deserialize<TType>(Stream input)
+            {
+                if (input == Stream.Null)
+                    return default(TType);
+
+                using (var reader = new StreamReader(input, Encoding.UTF8))
+                {
+                    var json = string.Empty;
+                    try
+                    {
+                        json = reader.ReadToEnd();
+
+                        return JsonConvert.DeserializeObject<TType>(json);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new SerializationException($"反序列化为：{typeof(TType).Name} 时发生了错误，json：{json}", e);
+                    }
+                }
+            }
+
+            #endregion Private Method
         }
     }
 }

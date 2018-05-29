@@ -26,6 +26,7 @@ namespace Rabbit.Go.Linq2Rest
             if (!typeof(IQueryable).IsAssignableFrom(responseType))
             {
                 await _next(context);
+                return;
             }
 
             var elementType = responseType.GenericTypeArguments[0];
