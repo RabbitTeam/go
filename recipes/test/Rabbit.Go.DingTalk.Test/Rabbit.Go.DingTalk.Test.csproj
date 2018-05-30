@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Rabbit.Go\Rabbit.Go.csproj" />
     <ProjectReference Include="..\..\DingTalk\Rabbit.Go.DingTalk.csproj" />
   </ItemGroup>
 

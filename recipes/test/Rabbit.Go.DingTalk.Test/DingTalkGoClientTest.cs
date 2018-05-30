@@ -11,8 +11,6 @@ namespace Rabbit.Go.DingTalk.Test
         public DingTalkGoClientTest()
         {
             _dingTalkGoClient = new ServiceCollection()
-                .AddOptions()
-                .AddLogging()
                 .AddGo()
                 .AddDingTalkGoClient("xxxxxxxxxx")
                 .BuildServiceProvider()

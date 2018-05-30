@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿/*using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Rabbit.Go.Core;
@@ -65,4 +65,4 @@ namespace Rabbit.Go.GitHub
                 .AddSingleton(s => s.GetRequiredService<IGoFactory>().CreateInstance<IGitHubGoClient>());
         }
     }
-}
+}*/

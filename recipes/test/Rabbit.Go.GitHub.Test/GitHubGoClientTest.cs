@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿/*using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -32,4 +32,4 @@ namespace Rabbit.Go.GitHub.Test
             Assert.NotEmpty(gist.Files);
         }
     }
-}
+}*/

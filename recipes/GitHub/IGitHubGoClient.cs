@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿/*using Newtonsoft.Json;
 using Rabbit.Go.Interceptors;
 using System;
 using System.Threading.Tasks;
@@ -41,4 +41,4 @@ namespace Rabbit.Go.GitHub
 
         public int Size { get; set; }
     }
-}
+}*/

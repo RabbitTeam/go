@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿/*using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Rabbit.Go.Codec;
 using System;
@@ -54,4 +54,4 @@ namespace Rabbit.Go.GitHub
 
         #endregion Implementation of IDecoder
     }
-}
+}*/

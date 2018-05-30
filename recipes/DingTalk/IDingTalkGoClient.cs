@@ -2,11 +2,9 @@
 
 namespace Rabbit.Go.DingTalk
 {
-    [Go("https://oapi.dingtalk.com/robot/send"), DingTalkCodec]
     public interface IDingTalkGoClient
     {
-        [GoPost]
-        Task<DingTalkApiResult> SendAsync([GoBody]DingTalkMessage message,
-            [GoQuery("access_token")]string accessToken);
+        [GoPost("/robot/send?access_token={accessToken}")]
+        Task<DingTalkApiResult> SendAsync([GoBody]DingTalkMessage message, string accessToken);
     }
 }
