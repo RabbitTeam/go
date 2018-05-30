@@ -46,7 +46,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go.Http", "src\Rabbi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go", "src\Rabbit.Go\Rabbit.Go.csproj", "{AF0D4CDD-0EAA-4F0C-8B25-D60B71F5E96D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Go.Linq2Rest", "src\Rabbit.Go.Linq2Rest\Rabbit.Go.Linq2Rest.csproj", "{069F057C-CA59-49B2-9E7A-F228BF7AECB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Go.Linq2Rest", "src\Rabbit.Go.Linq2Rest\Rabbit.Go.Linq2Rest.csproj", "{069F057C-CA59-49B2-9E7A-F228BF7AECB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
