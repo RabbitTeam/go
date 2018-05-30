@@ -1,4 +1,5 @@
 ﻿using Rabbit.Go.Core.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -6,25 +7,26 @@ namespace Rabbit.Go.Core.Reflective
 {
     public interface IMethodDescriptorTable
     {
-        MethodDescriptor Get(MethodInfo methodInfo);
+        MethodDescriptor Get(Type type, MethodInfo methodInfo);
 
-        void Set(MethodInfo methodInfo);
+        void Set(Type type, MethodInfo methodInfo);
     }
 
-    public class MethodDescriptorTable: IMethodDescriptorTable
+    public class MethodDescriptorTable : IMethodDescriptorTable
     {
-        private readonly Dictionary<int, MethodDescriptor> _table = new Dictionary<int, MethodDescriptor>();
+        private readonly Dictionary<(Type, MethodInfo), MethodDescriptor> _table = new Dictionary<(Type, MethodInfo), MethodDescriptor>();
 
-        public MethodDescriptor Get(MethodInfo method)
+        public MethodDescriptor Get(Type type, MethodInfo methodInfo)
         {
-            return _table.TryGetValue(method.GetHashCode(), out var descriptor) ? descriptor : null;
+            return _table.TryGetValue((type, methodInfo), out var descriptor) ? descriptor : null;
         }
 
-        public void Set(MethodInfo methodInfo)
+        public void Set(Type type, MethodInfo methodInfo)
         {
-            if (_table.ContainsKey(methodInfo.GetHashCode()))
+            var key = (type, methodInfo);
+            if (_table.ContainsKey(key))
                 return;
-            _table[methodInfo.GetHashCode()] = MethodDescriptorUtilities.CreateMethodDescriptor(methodInfo);
+            _table[key] = MethodDescriptorUtilities.CreateMethodDescriptor(type, methodInfo);
         }
     }
 }

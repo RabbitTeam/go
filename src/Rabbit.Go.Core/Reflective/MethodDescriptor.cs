@@ -8,7 +8,7 @@ namespace Rabbit.Go.Core
         public string RequestMethod { get; set; }
         public TemplateString RequestLine { get; set; }
         public ParameterDescriptor[] Parameters { get; set; }
-        public IDictionary<string, TemplateString> Headers { get; set; } = new Dictionary<string, TemplateString>(StringComparer.OrdinalIgnoreCase);
+        public IDictionary<string, TemplateString> Headers { get; set; }
     }
 
     public class ParameterDescriptor

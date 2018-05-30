@@ -7,6 +7,7 @@ using Rabbit.Go.Features;
 using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 
 namespace Cdreader.Services.Linq2Rest
 {
@@ -77,7 +78,13 @@ namespace Cdreader.Services.Linq2Rest
                     query.ToDictionary(i => i.Key, i => i.Value.ToString())));
             }
 
-            _invoker(goContext).GetAwaiter().GetResult();
+            try
+            {
+                _invoker(goContext).GetAwaiter().GetResult();
+            }
+            catch (HttpRequestException)
+            {
+            }
 
             var response = goContext.Response;
 

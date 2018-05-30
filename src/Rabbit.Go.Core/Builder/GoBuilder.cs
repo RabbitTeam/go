@@ -56,7 +56,7 @@ namespace Rabbit.Go.Core.Builder
         public object Target(Type type, string url)
         {
             foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.Instance))
-                MethodDescriptorTable.Set(method);
+                MethodDescriptorTable.Set(type, method);
 
             var goInterceptor = new GoInterceptor(() =>
             {
@@ -76,7 +76,7 @@ namespace Rabbit.Go.Core.Builder
                 }
 
                 return context;
-            }, _invoker, MethodDescriptorTable);
+            }, _invoker, MethodDescriptorTable, type);
 
             return ProxyGenerator.CreateInterfaceProxyWithoutTarget(type, Enumerable.Empty<Type>().ToArray(), goInterceptor);
             /*            if (_goInterceptor == null)

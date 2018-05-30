@@ -11,12 +11,14 @@ namespace Rabbit.Go.Core.Reflective
         private readonly Func<GoContext> _goContextFactory;
         private readonly GoRequestDelegate _invoker;
         private readonly IMethodDescriptorTable _methodDescriptorTable;
+        private readonly Type _type;
 
-        public GoInterceptor(Func<GoContext> goContextFactory, GoRequestDelegate invoker, IMethodDescriptorTable methodDescriptorTable)
+        public GoInterceptor(Func<GoContext> goContextFactory, GoRequestDelegate invoker, IMethodDescriptorTable methodDescriptorTable, Type type)
         {
             _goContextFactory = goContextFactory;
             _invoker = invoker;
             _methodDescriptorTable = methodDescriptorTable;
+            _type = type;
         }
 
         #region Implementation of IInterceptor
@@ -80,14 +82,14 @@ namespace Rabbit.Go.Core.Reflective
 
             var isTask = typeof(Task).IsAssignableFrom(returnType);
 
-            var realReturnType = isTask && returnType.IsGenericType ? returnType.GenericTypeArguments[0] : returnType;
+            var realReturnType = isTask && returnType.IsGenericType ? returnType.GenericTypeArguments[0] : (isTask ? null : returnType);
 
             var goContext = _goContextFactory();
 
             var goFeature = goContext.Features.Get<IGoFeature>();
             var reflectiveFeature = goContext.Features.Get<IReflectiveFeature>();
 
-            reflectiveFeature.MethodDescriptor = _methodDescriptorTable.Get(method);
+            reflectiveFeature.MethodDescriptor = _methodDescriptorTable.Get(_type, method);
 
             var dict = new Dictionary<string, object>();
             var parameters = method.GetParameters();
