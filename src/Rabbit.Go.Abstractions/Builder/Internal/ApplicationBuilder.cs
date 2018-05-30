@@ -17,12 +17,6 @@ namespace Rabbit.Go.Builder.Internal
             ApplicationServices = serviceProvider;
         }
 
-        public GoApplicationBuilder(IServiceProvider serviceProvider, object server)
-            : this(serviceProvider)
-        {
-            SetProperty(Constants.BuilderProperties.ServerFeatures, server);
-        }
-
         private GoApplicationBuilder(GoApplicationBuilder builder)
         {
             Properties = builder.Properties;

@@ -1,6 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Rabbit.Go;
+using Rabbit.Go.Builder;
+using Rabbit.Go.Builder.Internal;
+using Rabbit.Go.Codec;
+using Rabbit.Go.Core;
+using Rabbit.Go.Core.Builder;
+using Rabbit.Go.Http;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Sample.Client
@@ -9,11 +17,35 @@ namespace Sample.Client
     {
         private static async Task Main()
         {
-            var userGoClient = new ServiceCollection()
-                .AddOptions()
-                .AddGoClient()
-                .BuildServiceProvider()
-                .GetService<IUserGoClient>();
+            var services = new ServiceCollection()
+                .AddGo()
+                .BuildServiceProvider();
+
+            var app = new GoApplicationBuilder(services)
+                .UseMiddleware<ReflectiveMiddleware>()
+                .Use(async (context, next) =>
+                {
+                    try
+                    {
+                        await next();
+                    }
+                    catch (HttpRequestException)
+                    {
+                    }
+
+                    if (context.Response.StatusCode == 404)
+                    {
+                        context.Features.Get<IGoFeature>().ResponseInstance = null;
+                    }
+                })
+                .UseMiddleware<CodecMiddleware>()
+                .UseMiddleware<SignatureMiddleware>()
+                .UseMiddleware<HttpRequestMiddleware>()
+                .Build();
+            var userGoClient = new GoBuilder(app)
+                .Encoder(JsonEncoder.Instance)
+                .Decoder(JsonDecoder.Instance)
+                .Target<IUserGoClient>("http://localhost:34753");
 
             {
                 var user = await userGoClient.GetAsync(1);

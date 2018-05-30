@@ -49,10 +49,10 @@ namespace Rabbit.Go.Http
                 }
             }
 
+            await SetGoContextAsync(context, responseMessage);
+
             if (exception != null)
                 throw exception;
-
-            await SetGoContextAsync(context, responseMessage);
 
             await _next(context);
         }
@@ -121,11 +121,18 @@ namespace Rabbit.Go.Http
         {
             var response = context.Response;
 
-            foreach (var header in responseMessage.Content.Headers)
-                response.Headers.Add(header.Key, new StringValues(header.Value.ToArray()));
-
             response.StatusCode = (int)responseMessage.StatusCode;
-            response.Body = await responseMessage.Content.ReadAsStreamAsync();
+
+            if (responseMessage.Content != null)
+            {
+                foreach (var header in responseMessage.Content.Headers)
+                    response.Headers.Add(header.Key, new StringValues(header.Value.ToArray()));
+
+                if (responseMessage.Content.Headers.ContentLength > 0)
+                    response.Body = await responseMessage.Content.ReadAsStreamAsync();
+                else
+                    response.Body = Stream.Null;
+            }
         }
     }
 }
