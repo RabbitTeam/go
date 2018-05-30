@@ -8,10 +8,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Castle.Core" Version="4.2.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0" />    
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\recipes\DingTalk\Rabbit.Go.DingTalk.csproj" />
     <ProjectReference Include="..\src\Rabbit.Go.Http\Rabbit.Go.Http.csproj" />
+    <ProjectReference Include="..\src\Rabbit.Go.Linq2Rest\Rabbit.Go.Linq2Rest.csproj" />
     <ProjectReference Include="..\src\Rabbit.Go\Rabbit.Go.csproj" />
   </ItemGroup>
 
