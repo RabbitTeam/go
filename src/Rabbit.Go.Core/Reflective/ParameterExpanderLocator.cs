@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace Rabbit.Go.Core.Reflective
 {
@@ -8,7 +8,7 @@ namespace Rabbit.Go.Core.Reflective
     {
         private readonly IServiceProvider _services;
 
-        private readonly Dictionary<Type, IParameterExpander> _cacheds = new Dictionary<Type, IParameterExpander>();
+        private readonly ConcurrentDictionary<Type, IParameterExpander> _cacheds = new ConcurrentDictionary<Type, IParameterExpander>();
 
         public ParameterExpanderLocator(IServiceProvider services)
         {
@@ -20,16 +20,17 @@ namespace Rabbit.Go.Core.Reflective
         /// <inheritdoc/>
         public IParameterExpander Get(Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             if (!typeof(IParameterExpander).IsAssignableFrom(type))
                 throw new ArgumentException($"{type.FullName} is not {typeof(IParameterExpander).FullName} type.", nameof(type));
 
             if (_services.GetService(type) is IParameterExpander expander)
                 return expander;
 
-            if (_cacheds.TryGetValue(type, out expander))
-                return expander;
-
-            return _cacheds[type] = (IParameterExpander)ActivatorUtilities.CreateInstance(_services, type);
+            return _cacheds.GetOrAdd(type,
+                key => (IParameterExpander)ActivatorUtilities.CreateInstance(_services, type));
         }
 
         #endregion Implementation of IParameterExpanderLocator

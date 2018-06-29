@@ -128,7 +128,7 @@ namespace Rabbit.Go.Http
                 foreach (var header in responseMessage.Content.Headers)
                     response.Headers.Add(header.Key, new StringValues(header.Value.ToArray()));
 
-                if (responseMessage.Content.Headers.ContentLength > 0)
+                if (responseMessage.IsSuccessStatusCode && responseMessage.Content.Headers.ContentLength > 0)
                     response.Body = await responseMessage.Content.ReadAsStreamAsync();
                 else
                     response.Body = Stream.Null;

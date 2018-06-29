@@ -3,7 +3,7 @@ using Linq2Rest.Provider;
 using Microsoft.Extensions.DependencyInjection;
 using Rabbit.Go.Core;
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,6 +31,11 @@ namespace Rabbit.Go.Linq2Rest
 
             var elementType = responseType.GenericTypeArguments[0];
 
+            if (elementType == null)
+            {
+                return;
+            }
+
             goFeature.ResponseType = GetArrayType(elementType);
 
             var contextType = GetRestContextType(elementType);
@@ -40,21 +45,27 @@ namespace Rabbit.Go.Linq2Rest
             goFeature.ResponseInstance = contextType.GetProperty("Query").GetValue(instance);
         }
 
-        private static readonly Dictionary<Type, Type> ArrayTypes = new Dictionary<Type, Type>();
-        private static readonly Dictionary<Type, Type> RestContextTypes = new Dictionary<Type, Type>();
+        private static readonly ConcurrentDictionary<Type, Type> ArrayTypes = new ConcurrentDictionary<Type, Type>();
+        private static readonly ConcurrentDictionary<Type, Type> RestContextTypes = new ConcurrentDictionary<Type, Type>();
 
         private static Type GetArrayType(Type elementType)
         {
-            if (ArrayTypes.TryGetValue(elementType, out var type))
-                return type;
-            return ArrayTypes[elementType] = Array.CreateInstance(elementType, 0).GetType();
+            if (elementType == null)
+            {
+                throw new ArgumentNullException(nameof(elementType));
+            }
+
+            return ArrayTypes.GetOrAdd(elementType, key => Array.CreateInstance(elementType, 0).GetType());
         }
 
         private static Type GetRestContextType(Type elementType)
         {
-            if (RestContextTypes.TryGetValue(elementType, out var type))
-                return type;
-            return RestContextTypes[elementType] = typeof(RestContext<>).MakeGenericType(elementType);
+            if (elementType == null)
+            {
+                throw new ArgumentNullException(nameof(elementType));
+            }
+
+            return RestContextTypes.GetOrAdd(elementType, key => typeof(RestContext<>).MakeGenericType(elementType));
         }
     }
 }

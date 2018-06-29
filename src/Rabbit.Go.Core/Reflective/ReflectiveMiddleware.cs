@@ -106,6 +106,10 @@ namespace Rabbit.Go.Http
 
         private IParameterExpander GetParameterExpander(Type expanderType)
         {
+            if (expanderType == null)
+            {
+                return null;
+            }
             return _parameterExpanderLocator.Get(expanderType);
         }
     }
